@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="row">
+		<div class="h6 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">GRID SIZE</div>
+		<div class="h6 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">FRUIT TYPES</div>
+	</div>
+	<div class="row">
+		<div class="btn-group col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6" role="group" aria-label="Basic example">
+	  		<button type="button" id="decrease-grid-size" class="btn btn-secondary" (click)="decreaseGridSize()"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-secondary">{{("0"+size).slice(-2)}}</button>
+			<button type="button" id="increase-grid-size" class="btn btn-secondary" (click)="increaseGridSize()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+		</div>
+		<div class="btn-group col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6" role="group" aria-label="Basic example">
+	  		<button type="button" id="decrease-fruit-types" class="btn btn-secondary" (click)="decreaseFruitTypes()"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-secondary">{{("0"+fruits).slice(-2)}}</button>
+			<button type="button" id="increase-fruit-types" class="btn btn-secondary" (click)="increaseFruitTypes()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+		</div>
+	</div>
+	<!--  
+	<div class="row btn-toolbar" role="toolbar">
+		
+		<div class="col-2 btn-group mr-2" role="group">
+		  
+		</div>
+		
+		<div class="col-2 btn-group mr-2" role="group">
+		  <button type="button" class="btn btn-secondary" (click)="(size > 6 ? size = size - 1 : size = size); changeGridSize()"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+		  <button type="button" class="btn btn-secondary">{{("0"+size).slice(-2)}}</button>
+		  <button type="button" class="btn btn-secondary" (click)="(size < 10 ? size = size + 1 : size = size); changeGridSize()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+		</div>
+	</div>
+	-->
+	<table id="fruit-rage-minimax-game-grid">
+	  <tbody>
+	    <tr *ngFor="let row of board; let i = index">
+	      <td *ngFor="let col of row; let j = index">{{board[i][j]}}</td>
+	    </tr>
+	  </tbody>
+	</table>
+</div>

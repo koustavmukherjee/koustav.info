@@ -1,0 +1,25 @@
+<div class="container">
+  <ngb-tabset>
+    <ngb-tab title="Simple">
+      <ng-template ngbTabContent>
+        <p>The Fruit Rage!!</p>
+        <app-fruit-rage></app-fruit-rage>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle><b>Fancy</b> title</ng-template>
+      <ng-template ngbTabContent>
+        <p>This is the content of the second tab!</p>
+        <p><ngb-progressbar type="success" [value]="25"></ngb-progressbar></p>
+        <p><ngb-progressbar type="info" [value]="50"></ngb-progressbar></p>
+        <p><ngb-progressbar type="warning" [value]="75"></ngb-progressbar></p>
+        <p><ngb-progressbar type="danger" [value]="100"></ngb-progressbar></p>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Disabled" [disabled]="true">
+      <ng-template ngbTabContent>
+        <p>This tab is disabled</p>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>

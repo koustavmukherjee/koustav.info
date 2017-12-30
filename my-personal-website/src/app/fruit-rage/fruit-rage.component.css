@@ -1,0 +1,11 @@
+#fruit-rage-minimax-game-grid {
+	margin-top: 10px;
+}
+#fruit-rage-minimax-game-grid th, td {
+    border: 1px solid black;
+}
+#fruit-rage-minimax-game-grid td {
+	width: 50px;
+	height: 50px;
+	text-align: center;
+}
