@@ -15,24 +15,13 @@
 			<button type="button" id="increase-fruit-types" class="btn btn-secondary" (click)="increaseFruitTypes()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
 		</div>
 	</div>
-	<!--  
-	<div class="row btn-toolbar" role="toolbar">
-		
-		<div class="col-2 btn-group mr-2" role="group">
-		  
-		</div>
-		
-		<div class="col-2 btn-group mr-2" role="group">
-		  <button type="button" class="btn btn-secondary" (click)="(size > 6 ? size = size - 1 : size = size); changeGridSize()"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-		  <button type="button" class="btn btn-secondary">{{("0"+size).slice(-2)}}</button>
-		  <button type="button" class="btn btn-secondary" (click)="(size < 10 ? size = size + 1 : size = size); changeGridSize()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-		</div>
-	</div>
-	-->
+	
 	<table id="fruit-rage-minimax-game-grid">
 	  <tbody>
 	    <tr *ngFor="let row of board; let i = index">
-	      <td *ngFor="let col of row; let j = index">{{board[i][j]}}</td>
+	      <td id="{{board[i][j].id}}" *ngFor="let col of row; let j = index" (mouseenter) ="mouseEnter(i, j) "  (mouseleave) ="mouseLeave(i, j)" [ngStyle]="{ 'background-color': board[i][j].background_color }" >
+	      	<img class="fruit-image" [src]="('assets/icons/' + board[i][j].value + '.ico')" [alt]="board[i][j].value" />
+	      </td>
 	    </tr>
 	  </tbody>
 	</table>
