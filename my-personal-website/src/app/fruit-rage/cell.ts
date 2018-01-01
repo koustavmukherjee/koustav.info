@@ -4,4 +4,5 @@ export class Cell {
   col: number;
   background_color: string;
   value: number;
+  image_class: string;
 }

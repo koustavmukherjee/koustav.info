@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { FruitRageComponent } from './fruit-rage/fruit-rage.component';
+import { FruitRageBasicService } from './fruit-rage/fruit-rage-basic.service';
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import { FruitRageComponent } from './fruit-rage/fruit-rage.component';
     BrowserModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [FruitRageBasicService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

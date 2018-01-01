@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cell } from './cell';
+import { FruitRageBasicService } from './fruit-rage-basic.service';
+import { Node } from './node'
 
 const MAX_GRID_SIZE = 10;
 const MIN_GRID_SIZE = 6;
@@ -16,8 +18,8 @@ export class FruitRageComponent implements OnInit {
   fruits: number;
   board: Cell[][];
   cluster: number[] = [];
-  
-  constructor() {
+
+  constructor(private fruitRageBasicService: FruitRageBasicService) {
     this.size = 6;
     this.fruits = 4;
     this.generateBoard();
@@ -27,9 +29,6 @@ export class FruitRageComponent implements OnInit {
   }
 
   increaseGridSize() {
-    //const target = e.target || e.srcElement || e.currentTarget;
-    //const idAttr = target.attributes.id;
-    //console.log(idAttr);
     if (this.size < MAX_GRID_SIZE) {
       this.size++;
       this.generateBoard();
@@ -62,29 +61,44 @@ export class FruitRageComponent implements OnInit {
     for (let i = 0; i < this.size; i++) {
       this.board[i] = new Array(this.size);
       for (let j = 0; j < this.size; j++) {
-        let cell = new Cell();
+        const cell = new Cell();
         cell.row = i;
         cell.col = j;
         cell.id = i * this.size + j;
         cell.background_color = 'white';
         cell.value = Math.floor(Math.random() * this.fruits);
+        cell.image_class = 'fruit-cell-display-image';
         this.board[i][j] = cell;
       }
     }
   }
 
   mouseEnter(i, j) {
-    this.cluster = this.get_cluster(this.board[i][j].value, i, j, this.cluster, this.board, this.size);
-    for (let k = 0; k < this.cluster.length; k++) {
-      this.changeCellBackgroundColor(this.cluster[k], 'aqua');
+    if (this.board[i][j].value !== -1) {
+      this.cluster = this.fruitRageBasicService.get_cluster(this.board[i][j].value, i, j, this.cluster, this.board, this.size);
+      for (let k = 0; k < this.cluster.length; k++) {
+        this.changeCellBackgroundColor(this.cluster[k], 'aqua');
+      }
     }
   }
 
-  mouseLeave(i, j) {
+  mouseLeave() {
     for (let k = 0; k < this.cluster.length; k++) {
       this.changeCellBackgroundColor(this.cluster[k], 'white');
     }
     this.cluster = [];
+  }
+
+  onGridCellClick(i, j) {
+    for (let k = 0; k < this.cluster.length; k++) {
+      const row: number = Math.floor(this.cluster[k] / this.size);
+      const col: number = Math.floor(this.cluster[k] % this.size);
+      this.board[row][col].value = -1;
+      this.board[row][col].image_class = 'fruit-cell-hide-image';
+    }
+    this.gravitate();
+    this.mouseLeave();
+    this.mouseEnter(i, j);
   }
 
   changeCellBackgroundColor(id, color) {
@@ -92,39 +106,47 @@ export class FruitRageComponent implements OnInit {
     const col: number = Math.floor(id % this.size);
     this.board[row][col].background_color = color;
   }
-  
-  get_cluster(fruit, x, y, cluster, state, size) {
 
-    if (cluster.includes(x * this.size + y)) {
-      return cluster;
+  startGame() {
+    const state = this.getStateFromBoard();
+    let node:Node = new Node(this.fruitRageBasicService, state, this.size);
+    node.get_successors();
+  }
+
+  getStateFromBoard(): number[][] {
+    let state = [];
+    for ( let i = 0; i < this.size; i++) {
+      state[i] = [];
+      for ( let j = 0; j < this.size; j++) {
+        state[i][j] = this.board[i][j].value;
+      }
     }
+    return state;
+  }
 
-    if (state[x][y].value !== fruit) {
-      return cluster;
+  gravitate() {
+    for (let i = 0; i < this.size; i++) {
+      let end = this.size - 1;
+      let start = this.size - 1;
+      while (end >= 0) {
+        if (this.board[end][i].image_class === 'fruit-cell-hide-image') {
+          end -= 1;
+        }
+        else {
+          if (start === end) {
+            end -= 1;
+            start -= 1;
+          }
+          else {
+            this.board[start][i].value = this.board[end][i].value;
+            this.board[start][i].image_class = 'fruit-cell-display-image';
+            this.board[end][i].image_class = 'fruit-cell-hide-image';
+            this.board[end][i].value = -1;
+            end -= 1;
+            start -= 1;
+          }
+        }
+      }
     }
-
-    cluster.push(x * this.size + y);
-
-    // left
-    if (x - 1 >= 0 ) {
-        this.get_cluster(fruit, x - 1, y, cluster, state, this.size);
-    }
-
-    // right
-    if (x + 1 < this.size) {
-        this.get_cluster(fruit, x + 1, y, cluster, state, this.size);
-    }
-
-    // up
-    if (y - 1 >= 0) {
-        this.get_cluster(fruit, x, y - 1, cluster, state, this.size);
-    }
-
-    // down
-    if (y + 1 < size) {
-        this.get_cluster(fruit, x, y + 1, cluster, state, this.size);
-    }
-
-    return cluster;
   }
 }

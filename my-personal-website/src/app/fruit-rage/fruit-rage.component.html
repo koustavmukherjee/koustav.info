@@ -19,10 +19,25 @@
 	<table id="fruit-rage-minimax-game-grid">
 	  <tbody>
 	    <tr *ngFor="let row of board; let i = index">
-	      <td id="{{board[i][j].id}}" *ngFor="let col of row; let j = index" (mouseenter) ="mouseEnter(i, j) "  (mouseleave) ="mouseLeave(i, j)" [ngStyle]="{ 'background-color': board[i][j].background_color }" >
-	      	<img class="fruit-image" [src]="('assets/icons/' + board[i][j].value + '.ico')" [alt]="board[i][j].value" />
+	      <td 	id="{{board[i][j].id}}" *ngFor="let col of row; let j = index" 
+	      		(mouseenter) ="mouseEnter(i, j) "  
+	      		(mouseleave) ="mouseLeave()" 
+	      		(click) = "onGridCellClick(i, j)"
+	      		[ngStyle]="{ 'background-color': board[i][j].background_color }" >
+	      	<img 	class="fruit-image" 
+	      			[src]="board[i][j].value >= 0 ? ('assets/icons/' + board[i][j].value + '.ico') : ''" 
+	      			[alt]="board[i][j].value" 
+	      			[ngClass]="board[i][j].image_class"/>
 	      </td>
 	    </tr>
 	  </tbody>
 	</table>
+	<div class="row">
+		<div class="h6 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
+			<button type="button" class="btn btn-outline-primary" 
+			[ngStyle]="{ 'margin-top':'15px' } "
+			(click) = "startGame()"
+			>PLAY</button>
+		</div>
+	</div>
 </div>
