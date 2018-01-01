@@ -111,7 +111,9 @@ export class FruitRageComponent implements OnInit {
   startGame() {
     const state = this.getStateFromBoard();
     const node: Node = new Node(this.fruitRageBasicService, state, this.size);
-    node.get_successors();
+    const successors = node.get_successors();
+    const decision: Node = this.fruitRageBasicService.minimax_decision(successors);
+    console.log(decision.cluster);
   }
 
   getStateFromBoard(): number[][] {
