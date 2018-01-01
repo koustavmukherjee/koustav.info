@@ -23,3 +23,22 @@
 	opacity: 1;
     /*-webkit-transition: opacity 2s;*/
 }
+.player-details {
+	margin-top: 10px;
+	text-align: center;
+}
+.color-blue {
+	text-align: center;
+	color: blue;
+}
+.color-red {
+	text-align: center;
+	color: red;
+}
+.color-green {
+	text-align: center;
+	color: green;
+}
+.font-weight-bold {
+	font-weight: bold;
+}

@@ -32,12 +32,42 @@
 	    </tr>
 	  </tbody>
 	</table>
+	<!--
 	<div class="row">
 		<div class="h6 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6">
 			<button type="button" class="btn btn-outline-primary" 
 			[ngStyle]="{ 'margin-top':'15px' } "
 			(click) = "startGame()"
 			>PLAY</button>
+		</div>
+	</div>
+	-->
+	<div class="row player-details">
+		<div class="h6 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6 font-weight-bold">PLAYER SCORE</div>
+		<div class="h6 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6 font-weight-bold">AI AGENT SCORE</div>
+	</div>
+	<div class="row">
+		<div class="btn-group col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6" role="group" aria-label="Basic example">
+	  		<button type="button" class="btn btn-secondary">
+	  			<span class="h6 color-blue">{{("00"+player_score).slice(-3)}}</span>
+	  		</button>
+			<button type="button" class="btn btn-secondary">
+				<span class="h6 color-red">{{("00"+player_score).slice(-3)}}</span>
+			</button>
+			<button type="button" class="btn btn-secondary">
+				<span class="h6 color-green">{{("00"+player_score).slice(-3)}}</span>
+			</button>
+		</div>
+		<div class="btn-group col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6" role="group" aria-label="Basic example">
+	  		<button type="button" class="btn btn-secondary">
+	  			<span class="h6 color-red">{{("00"+ai_agent_score).slice(-3)}}</span>
+	  		</button>
+			<button type="button" class="btn btn-secondary">
+				<span class="h6 color-blue">{{("00"+ai_agent_score).slice(-3)}}</span>
+			</button>
+			<button type="button" class="btn btn-secondary">
+				<span class="h6 color-green">{{("00"+ai_agent_score).slice(-3)}}</span>
+			</button>
 		</div>
 	</div>
 </div>

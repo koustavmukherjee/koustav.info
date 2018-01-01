@@ -18,6 +18,8 @@ export class FruitRageComponent implements OnInit {
   fruits: number;
   board: Cell[][];
   cluster: number[] = [];
+  ai_agent_score = 0;
+  player_score = 0;
 
   constructor(private fruitRageBasicService: FruitRageBasicService) {
     this.size = 6;
