@@ -1,9 +1,6 @@
 import {Cell} from './cell';
 import { FruitRageBasicService } from './fruit-rage-basic.service';
 
-let MAX_DEPTH = 4;
-let MAX_BRANCHING_FACTOR = 5;
-
 export class Node {
   state: number[][];
   depth: number;
@@ -13,6 +10,8 @@ export class Node {
   blank_count: number;
   size: number;
   clusters_consumed: number;
+  max_depth: number;
+  max_branching_factor: number;
 
   constructor(private fruitRageBasicService: FruitRageBasicService, state, size) {
     this.state = state;
@@ -23,14 +22,15 @@ export class Node {
     this.blank_count = 0;
     this.size = size;
     this.clusters_consumed = 0;
+    this.max_depth = 4;
+    this.max_branching_factor = 5;
   }
 
   isCutOffDepth() {
-    if (MAX_DEPTH === -1) {
+    if (this.max_depth === -1) {
       return this.depth === this.size * this.size;
-    }
-    else {
-      return this.depth === this.size * this.size || this.depth === MAX_DEPTH;
+    } else {
+      return this.depth === this.size * this.size || this.depth === this.max_depth;
     }
   }
 
@@ -46,14 +46,14 @@ export class Node {
   }
 
   get_successors() {
-    let successors = [];
-    let clusters = this.fruitRageBasicService.get_clusters(this.state, this.size);
+    const successors = [];
+    const clusters = this.fruitRageBasicService.get_clusters(this.state, this.size);
     clusters.sort(function (a, b) {
       return b.length - a.length;
     });
     let clusters_considered = clusters;
-    if (MAX_BRANCHING_FACTOR !== -1) {
-      clusters_considered = clusters_considered.slice(0, MAX_BRANCHING_FACTOR - 1);
+    if (this.max_branching_factor !== -1) {
+      clusters_considered = clusters_considered.slice(0, this.max_branching_factor - 1);
     }
     for (let i = 0; i < clusters_considered.length; i++) {
       const cluster = clusters_considered[i];
@@ -66,8 +66,8 @@ export class Node {
       successor.clusters_consumed = cluster.length;
       for (let j = 0; j < cluster.length; j++) {
         const loc = cluster[j];
-        let key = Math.floor(loc / this.size);
-        let val = Math.floor(loc % this.size);
+        const key = Math.floor(loc / this.size);
+        const val = Math.floor(loc % this.size);
         successor.state[key][val] = -1;
       }
       successor.cluster = cluster;
@@ -75,5 +75,17 @@ export class Node {
       successors.push(successor);
     }
     return successors;
+  }
+
+  get_blank_count() {
+    let blank_count = 0;
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
+            if (this.state[i][j] === -1) {
+                blank_count += 1;
+            }
+      }
+    }
+    return blank_count;
   }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Cell } from './cell';
-import { FruitRageBasicService } from './fruit-rage-basic.service';
-import { Node } from './node'
+import {Component, OnInit} from '@angular/core';
+import {Cell} from './cell';
+import {FruitRageBasicService} from './fruit-rage-basic.service';
+import { Node} from './node';
 
 const MAX_GRID_SIZE = 10;
 const MIN_GRID_SIZE = 6;
@@ -75,7 +75,8 @@ export class FruitRageComponent implements OnInit {
 
   mouseEnter(i, j) {
     if (this.board[i][j].value !== -1) {
-      this.cluster = this.fruitRageBasicService.get_cluster(this.board[i][j].value, i, j, this.cluster, this.board, this.size);
+      this.cluster = this.fruitRageBasicService.get_cluster(this.board[i][j].value, i, j, this.cluster,
+                                                            this.board, this.size, 'presentation');
       for (let k = 0; k < this.cluster.length; k++) {
         this.changeCellBackgroundColor(this.cluster[k], 'aqua');
       }
@@ -109,15 +110,15 @@ export class FruitRageComponent implements OnInit {
 
   startGame() {
     const state = this.getStateFromBoard();
-    let node:Node = new Node(this.fruitRageBasicService, state, this.size);
+    const node: Node = new Node(this.fruitRageBasicService, state, this.size);
     node.get_successors();
   }
 
   getStateFromBoard(): number[][] {
-    let state = [];
-    for ( let i = 0; i < this.size; i++) {
+    const state = [];
+    for (let i = 0; i < this.size; i++) {
       state[i] = [];
-      for ( let j = 0; j < this.size; j++) {
+      for (let j = 0; j < this.size; j++) {
         state[i][j] = this.board[i][j].value;
       }
     }
@@ -131,13 +132,11 @@ export class FruitRageComponent implements OnInit {
       while (end >= 0) {
         if (this.board[end][i].image_class === 'fruit-cell-hide-image') {
           end -= 1;
-        }
-        else {
+        } else {
           if (start === end) {
             end -= 1;
             start -= 1;
-          }
-          else {
+          } else {
             this.board[start][i].value = this.board[end][i].value;
             this.board[start][i].image_class = 'fruit-cell-display-image';
             this.board[end][i].image_class = 'fruit-cell-hide-image';
