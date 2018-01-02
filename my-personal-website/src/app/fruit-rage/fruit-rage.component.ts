@@ -50,7 +50,7 @@ export class FruitRageComponent implements OnInit {
   }
 
   decreaseGridSize() {
-    if (this.game_started) {
+    if (!this.game_started) {
       if (this.size > MIN_GRID_SIZE) {
         this.size--;
         this.generateBoard();
@@ -59,7 +59,7 @@ export class FruitRageComponent implements OnInit {
   }
 
   increaseFruitTypes() {
-    if (this.game_started) {
+    if (!this.game_started) {
       if (this.fruits < MAX_FRUIT_TYPES) {
         this.fruits++;
         this.generateBoard();
@@ -68,7 +68,7 @@ export class FruitRageComponent implements OnInit {
   }
 
   decreaseFruitTypes() {
-    if (this.game_started) {
+    if (!this.game_started) {
       if (this.fruits > MIN_FRUIT_TYPES) {
         this.fruits--;
         this.generateBoard();
@@ -140,7 +140,9 @@ export class FruitRageComponent implements OnInit {
       } else {
         this.gravitate();
         this.mouseLeave();
-        this.mouseEnter(i, j);
+        if (invoker === 'ai_agent') {
+          this.mouseEnter(i, j);
+        }
         if (invoker === 'player') {
           this.aiAgentMove(i, j);
         }
@@ -158,6 +160,7 @@ export class FruitRageComponent implements OnInit {
       this.rd_2_in_prog = true;
       this.board = this.board_copy;
       this.blank_count = 0;
+      this.mouseLeave();
       this.aiAgentMove(i, j);
     } else if (this.rd_2_in_prog) {
       this.rd_2_in_prog = false;
