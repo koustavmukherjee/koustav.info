@@ -23,7 +23,7 @@ export class Node {
     this.size = size;
     this.clusters_consumed = 0;
     this.max_depth = 4;
-    this.max_branching_factor = 5;
+    this.max_branching_factor = -1;
   }
 
   isCutOffDepth() {
