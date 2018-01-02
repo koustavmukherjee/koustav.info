@@ -19,7 +19,6 @@ export class Node {
     this.points = 0;
     this.cluster = [];
     this.node_type = true;
-    this.blank_count = this.get_blank_count();
     this.size = size;
     this.clusters_consumed = 0;
     this.max_depth = 4;
@@ -30,7 +29,7 @@ export class Node {
     if (this.max_depth === -1) {
       return this.depth === this.size * this.size;
     } else {
-      return this.depth === this.size * this.size || this.depth === this.max_depth;
+      return this.blank_count === this.size * this.size || this.depth === this.max_depth;
     }
   }
 

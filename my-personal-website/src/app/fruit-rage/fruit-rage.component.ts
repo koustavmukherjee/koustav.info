@@ -157,15 +157,16 @@ export class FruitRageComponent implements OnInit {
       this.rd_1_in_prog = false;
       this.rd_2_in_prog = true;
       this.board = this.board_copy;
+      this.blank_count = 0;
       this.aiAgentMove(i, j);
     } else if (this.rd_2_in_prog) {
       this.rd_2_in_prog = false;
       if ((this.rd1_pl1_score + this.rd2_pl1_score) > (this.rd1_pl2_score + this.rd2_pl2_score)) {
-        console.error('Player 1 won !!');
+        console.log('Player 1 won !!');
       } else if ((this.rd1_pl1_score + this.rd2_pl1_score) < (this.rd1_pl2_score + this.rd2_pl2_score)) {
-        console.error('Player 2 won !!');
+        console.log('Player 2 won !!');
       } else {
-        console.error('Match Drawn !!');
+        console.log('Match Drawn !!');
       }
     } else {
       console.error('Error State!!');
@@ -181,6 +182,7 @@ export class FruitRageComponent implements OnInit {
   aiAgentMove(i, j) {
     const state = this.getStateFromBoard();
     const node: Node = new Node(this.fruitRageBasicService, state, this.size);
+    node.blank_count = this.blank_count;
     const successors = node.get_successors();
     const decision: Node = this.fruitRageBasicService.minimax_decision(successors);
     this.cluster = decision.cluster;

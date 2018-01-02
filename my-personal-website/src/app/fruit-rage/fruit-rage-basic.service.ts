@@ -91,6 +91,9 @@ export class FruitRageBasicService {
     }
     let v: number = Number.NEGATIVE_INFINITY;
     const successors = node.get_successors();
+    if (successors.length === 0) {
+      return node.points;
+    }
     for (let i = 0; i < successors.length; i++) {
       const successor = successors[i];
       v = Math.max(v, this.min_value(successor, alpha, beta));
@@ -108,6 +111,9 @@ export class FruitRageBasicService {
     }
     let v: number = Number.POSITIVE_INFINITY;
     const successors = node.get_successors();
+    if (successors.length === 0) {
+      return node.points;
+    }
     for (let i = 0; i < successors.length; i++) {
       const successor = successors[i];
       v = Math.min(v, this.max_value(successor, alpha, beta));
@@ -137,6 +143,9 @@ export class FruitRageBasicService {
         alpha = value;
         index = i;
       }
+    }
+    if (index === -1) {
+      console.log('Index is -1');
     }
     return successors[index];
   }
