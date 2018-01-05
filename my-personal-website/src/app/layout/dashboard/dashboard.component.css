@@ -1,0 +1,65 @@
+@media all and (min-width: 1200px) {
+    .about-me-details {
+        font-size: 0.64em;
+    }
+}
+
+@media all and (min-width: 1000px) and (max-width: 1199px) {
+    .about-me-details {
+        font-size: 0.60em;
+    }
+}
+
+@media all and (max-width: 999px) and (min-width: 800px) {
+    .about-me-details {
+        font-size: 0.58em;
+    }
+}
+
+@media all and (max-width: 799px) and (min-width: 600px) {
+    .about-me-details {
+        font-size: 0.52em;
+    }
+}
+
+@media all and (max-width: 599px) and (min-width: 320px) {
+    .about-me-details {
+        font-size: 0.50em;
+    }
+ 
+}
+
+.myDiv {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  color: #000;
+  font-size: 400%;
+  padding: 20px; 
+  height: calc(100vh - 86px); 
+}
+
+.myDiv::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url(/assets/images/koustav.jpg) no-repeat center top fixed;
+    opacity: 1;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.about-me-details {
+	width: 50%;
+}
+
+.about-me-details a {
+	position: absolute;
+	bottom: 10px;
+}
