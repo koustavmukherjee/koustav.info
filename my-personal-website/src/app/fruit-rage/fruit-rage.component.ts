@@ -31,9 +31,16 @@ export class FruitRageComponent implements OnInit {
   rd2_pl1_score = 0;
   rd2_pl2_score = 0;
 
+  test_board =  [
+                  [0, 1, 0, 1, 0],
+                  [1, 1, 0, 1, 0],
+                  [1, 1, 0, 0, 1],
+                  [0, 1, 1, 0, 0],
+                  [0, 0, 0, 1, 1],
+                ];
   constructor(private fruitRageBasicService: FruitRageBasicService) {
     this.size = 6;
-    this.fruits = 4;
+    this.fruits = 5;
     this.generateBoard();
   }
 
@@ -80,15 +87,17 @@ export class FruitRageComponent implements OnInit {
     this.board = new Array(this.size);
     this.board_copy = new Array(this.size);
     for (let i = 0; i < this.size; i++) {
+    // for (let i = 0; i < 5; i++) {
       this.board[i] = new Array(this.size);
       this.board_copy[i] = new Array(this.size);
       for (let j = 0; j < this.size; j++) {
+      // for (let j = 0; j < 5; j++) {
         const cell = new Cell();
         cell.row = i;
         cell.col = j;
         cell.id = i * this.size + j;
         cell.background_color = 'white';
-        cell.value = Math.floor(Math.random() * this.fruits);
+        cell.value = Math.floor(Math.random() * this.fruits); // this.test_board[i][j];
         cell.image_class = 'fruit-cell-display-image';
         this.board[i][j] = cell;
         this.board_copy[i][j] = cell.clone();
@@ -138,6 +147,8 @@ export class FruitRageComponent implements OnInit {
       if (this.isGameOver()) {
         this.onGameOver(i, j);
       } else {
+        //const self = this;
+        // setTimeout(function(){ self.gravitate(); }, 250);
         this.gravitate();
         this.mouseLeave();
         if (invoker === 'ai_agent') {

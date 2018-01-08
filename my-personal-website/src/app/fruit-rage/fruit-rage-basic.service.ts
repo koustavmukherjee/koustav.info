@@ -139,6 +139,7 @@ export class FruitRageBasicService {
     let index = -1;
     for (let i = 0; i < successors.length; i++) {
       const value = this.minimax_value(successors[i], alpha, beta);
+      // console.log('Successor Value : ' + value);
       if (value > alpha) {
         alpha = value;
         index = i;

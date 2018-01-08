@@ -21,8 +21,8 @@ export class Node {
     this.node_type = true;
     this.size = size;
     this.clusters_consumed = 0;
-    this.max_depth = 4;
-    this.max_branching_factor = 20;
+    this.max_depth = 5;
+    this.max_branching_factor = 10;
   }
 
   isCutOffDepth() {
@@ -59,7 +59,7 @@ export class Node {
       const successor = this.clone();
       successor.depth = this.depth + 1;
       const points = cluster.length * cluster.length;
-      successor.points = this.points + (this.node_type ? this.points : -1 * this.points);
+      successor.points = this.points + (this.node_type ? points : -1 * points);
       successor.node_type = !this.node_type;
       successor.blank_count = this.blank_count + cluster.length;
       successor.clusters_consumed = cluster.length;
